@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramakrishna Academy – Computer Hardware Components Exam</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --navy: #0d1b2a;
+    --gold: #c9952a;
+    --gold-light: #f0c060;
+    --cream: #fdf6e3;
+    --white: #ffffff;
+    --red: #c0392b;
+    --green: #1a7a4a;
+    --green-bg: #eafaf1;
+    --red-bg: #fdecea;
+    --border: #d4c5a0;
+    --text: #2c2c2c;
+    --muted: #6b6b6b;
+    --shadow: 0 4px 24px rgba(13,27,42,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    gap: 16px;
+  }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .header-logo {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900;
+    color: var(--navy);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(201,149,42,0.3);
+  }
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    color: var(--gold-light);
+  }
+  .header-text p {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .header-actions { display: flex; align-items: center; gap: 10px; }
+  .btn-header {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: 'Source Serif 4', serif;
+    transition: all 0.2s;
+  }
+  .btn-header:hover { background: rgba(255,255,255,0.18); }
+
+  /* ===== TIMER ===== */
+  #timerBar {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+    padding: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+  }
+  #timerBar.urgent { color: #ff6b6b; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  /* ===== LANDING SCREEN ===== */
+  #screen-landing {
+    max-width: 680px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+  .landing-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .landing-banner {
+    background: linear-gradient(135deg, var(--navy) 60%, #1a3a5c);
+    padding: 40px 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .landing-banner::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(201,149,42,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .landing-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold-light);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .landing-banner p {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+  }
+  .landing-body { padding: 36px 40px; }
+  .exam-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .meta-item {
+    background: #f8f4eb;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .meta-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 4px; }
+  .meta-value { font-size: 1rem; font-weight: 600; color: var(--navy); }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .instructions {
+    background: #fffbf0;
+    border: 1px solid #e8d9a0;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+  }
+  .instructions h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 10px; }
+  .instructions li { font-size: 0.85rem; color: var(--muted); margin-bottom: 6px; margin-left: 18px; }
+  .btn-primary {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--navy), #1a3a5c);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(13,27,42,0.25);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,27,42,0.35); }
+
+  /* ===== EXAM SCREEN ===== */
+  #screen-exam { max-width: 860px; margin: 0 auto; padding: 30px 20px 60px; }
+  .progress-wrap { margin-bottom: 24px; }
+  .progress-info { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+  .progress-bar { height: 6px; background: #e0d8c8; border-radius: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 10px; transition: width 0.4s ease; }
+
+  .section-header {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 12px 12px 0 0;
+    padding: 18px 24px;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; }
+  .section-desc { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+  .questions-container {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+  }
+
+  .question-block {
+    padding: 26px 28px;
+    border-bottom: 1px solid #f0ebe0;
+    transition: background 0.2s;
+  }
+  .question-block:last-child { border-bottom: none; }
+  .question-block.answered { background: #fffef8; }
+
+  .q-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: var(--navy);
+    color: var(--gold-light);
+    border-radius: 50%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .q-text-wrap { display: flex; align-items: flex-start; margin-bottom: 16px; }
+  .q-text { font-size: 0.95rem; line-height: 1.6; color: var(--text); font-weight: 400; }
+  .q-text strong { font-style: italic; color: var(--navy); }
+
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-left: 38px; }
+  @media(max-width:600px){ .options-grid { grid-template-columns: 1fr; } }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 2px solid #e8e0d0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    user-select: none;
+  }
+  .option-label:hover { border-color: var(--gold); background: #fffbf0; }
+  .option-label input[type="radio"] { display: none; }
+  .option-label.selected { border-color: var(--gold); background: #fffbf0; }
+  .option-key {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #f0ebe0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .option-label.selected .option-key { background: var(--gold); color: var(--navy); }
+
+  /* AR section special */
+  .ar-block { padding: 26px 28px; border-bottom: 1px solid #f0ebe0; }
+  .ar-block:last-child { border-bottom: none; }
+  .ar-stmt { padding: 10px 14px; border-radius: 6px; margin-bottom: 8px; font-size: 0.88rem; line-height: 1.5; }
+  .ar-stmt.assertion { background: #eef4ff; border-left: 3px solid #4a90d9; }
+  .ar-stmt.reason { background: #f0fef4; border-left: 3px solid #2ecc71; }
+  .ar-stmt strong { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 3px; color: var(--muted); }
+  .ar-options { padding-left: 38px; margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .ar-options .option-label { grid-column: auto; }
+
+  /* Submit zone */
+  .submit-zone {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .warning-msg {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 0.85rem;
+    color: #7a5c00;
+    display: none;
+    width: 100%;
+    text-align: center;
+  }
+  .warning-msg.show { display: block; }
+  .answered-count { font-size: 0.85rem; color: var(--muted); }
+  .answered-count span { font-weight: 600; color: var(--navy); font-family: 'JetBrains Mono', monospace; }
+
+  .btn-submit {
+    padding: 14px 48px;
+    background: linear-gradient(135deg, #1a7a4a, #0f5c35);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(26,122,74,0.3);
+  }
+  .btn-submit:disabled {
+    background: #b0b0b0;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .btn-submit:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(26,122,74,0.4); }
+
+  /* ===== RESULT SCREEN ===== */
+  #screen-result { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+
+  .score-card {
+    background: linear-gradient(135deg, var(--navy), #1a3a5c);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    color: var(--white);
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .score-card::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(201,149,42,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .score-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .score-label { font-size: 0.85rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px; }
+  .score-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .stat-item { text-align: center; }
+  .stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  .stat-val.correct { color: #6ee7a0; }
+  .stat-val.wrong { color: #ff8a8a; }
+  .stat-val.unattempted { color: #ffd700; }
+  .stat-lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  .grade-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    padding: 6px 24px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+
+  /* Answer review */
+  .review-section { margin-bottom: 32px; }
+  .review-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .review-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+  .review-item.correct-ans { border-left: 4px solid var(--green); }
+  .review-item.wrong-ans { border-left: 4px solid var(--red); }
+
+  .review-q { font-size: 0.9rem; line-height: 1.5; margin-bottom: 10px; }
+  .review-ans-row { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.82rem; }
+  .your-ans { padding: 4px 10px; border-radius: 4px; }
+  .your-ans.right { background: var(--green-bg); color: var(--green); }
+  .your-ans.wrong { background: var(--red-bg); color: var(--red); }
+  .correct-show { padding: 4px 10px; border-radius: 4px; background: var(--green-bg); color: var(--green); }
+
+  .result-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+  .btn-action {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-navy { background: var(--navy); color: var(--white); }
+  .btn-navy:hover { background: #1a3a5c; }
+  .btn-gold { background: var(--gold); color: var(--navy); }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-green { background: var(--green); color: var(--white); }
+  .btn-green:hover { background: #1a9a5a; }
+
+  /* ===== TEACHER DASHBOARD ===== */
+  #screen-dashboard { max-width: 1000px; margin: 0 auto; padding: 30px 20px 80px; }
+  #screen-dashboard h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .dashboard-table-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: auto;
+    box-shadow: var(--shadow);
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead { background: var(--navy); color: var(--white); }
+  thead th { padding: 14px 18px; text-align: left; font-family: 'Playfair Display', serif; font-size: 0.85rem; letter-spacing: 0.05em; }
+  tbody tr { border-bottom: 1px solid #f0ebe0; transition: background 0.15s; }
+  tbody tr:hover { background: #fffbf0; }
+  tbody td { padding: 13px 18px; font-size: 0.88rem; }
+  .pct-cell { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+  .pct-cell.hi { color: var(--green); }
+  .pct-cell.mid { color: var(--gold); }
+  .pct-cell.lo { color: var(--red); }
+  .no-data { text-align: center; padding: 48px; color: var(--muted); font-style: italic; }
+  .dashboard-actions { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+
+  /* ===== FULLSCREEN ===== */
+  :fullscreen .site-header { position: sticky; }
+
+  /* ===== PRINT / narrow ===== */
+  @media(max-width:480px){
+    .header-text h1 { font-size: 1rem; }
+    .exam-meta { grid-template-columns: 1fr; }
+    .score-stats { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SITE HEADER ==================== -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">RA</div>
+      <div class="header-text">
+        <h1>Ramakrishna Academy</h1>
+        <p>Computer Hardware Components — Class VII</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-header" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+      <button class="btn-header" onclick="showDashboard()">📊 Dashboard</button>
+    </div>
+  </div>
+  <div id="timerBar" style="display:none;">⏱ Time Remaining: <span id="timerDisplay">25:00</span></div>
+</header>
+
+<!-- ==================== LANDING ==================== -->
+<div id="screen-landing" class="screen active">
+  <div class="landing-card">
+    <div class="landing-banner">
+      <h2>Computer Hardware<br>Components</h2>
+      <p>Chapter 1 — Unit Test &nbsp;|&nbsp; ICSE Pattern</p>
+    </div>
+    <div class="landing-body">
+      <div class="exam-meta">
+        <div class="meta-item"><div class="meta-label">Total Questions</div><div class="meta-value">60 Questions</div></div>
+        <div class="meta-item"><div class="meta-label">Total Marks</div><div class="meta-value">60 Marks</div></div>
+        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">25 Minutes</div></div>
+        <div class="meta-item"><div class="meta-label">Sections</div><div class="meta-value">A (MCQ) + B (A-R)</div></div>
+      </div>
+      <div class="form-group">
+        <label for="studentName">Student Name *</label>
+        <input type="text" id="studentName" placeholder="Enter your full name" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="studentClass">Class / Section *</label>
+        <input type="text" id="studentClass" placeholder="e.g. VII-A">
+      </div>
+      <div class="instructions">
+        <h4>Instructions</h4>
+        <ul>
+          <li>All 60 questions are compulsory.</li>
+          <li>Each question carries 1 mark. No negative marking.</li>
+          <li>Section A: 50 MCQs (Choose the correct option).</li>
+          <li>Section B: 10 Assertion-Reason questions (ICSE pattern).</li>
+          <li>Timer starts when you click "Begin Exam". Submit will only activate after answering all questions.</li>
+          <li>Do not refresh the page during the exam.</li>
+        </ul>
+      </div>
+      <button class="btn-primary" onclick="startExam()">Begin Exam →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== EXAM ==================== -->
+<div id="screen-exam" class="screen">
+  <div class="progress-wrap">
+    <div class="progress-info">
+      <span>Progress</span>
+      <span id="progressText">0 / 60 answered</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Section A -->
+  <div class="section-header">
+    <div>
+      <div class="section-badge">Section A</div>
+      <div class="section-title">Multiple Choice Questions</div>
+      <div class="section-desc">50 Questions · 1 Mark each · Choose the single best answer</div>
+    </div>
+  </div>
+  <div class="questions-container" id="sectionA"></div>
+
+  <!-- Section B -->
+  <div class="section-header" style="margin-top:36px">
+    <div>
+      <div class="section-badge">Section B</div>
+      <div class="section-title">Assertion – Reason Questions</div>
+      <div class="section-desc">10 Questions · 1 Mark each · ICSE Pattern</div>
+    </div>
+  </div>
+  <div class="questions-container" id="sectionB">
+    <div style="padding:16px 24px; background:#fffbf0; border-bottom:1px solid #f0ebe0; font-size:0.85rem; color:var(--muted);">
+      <strong style="color:var(--navy);">Instructions:</strong> In each question, an Assertion (A) and a Reason (R) are given. Choose the correct option:
+      <br><strong>A.</strong> Both A and R are true, and R is the correct explanation of A.
+      <br><strong>B.</strong> Both A and R are true, but R is NOT the correct explanation of A.
+      <br><strong>C.</strong> A is true but R is false.
+      <br><strong>D.</strong> A is false but R is true.
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-zone">
+    <div class="answered-count">You have answered <span id="answeredCount">0</span> out of <span>60</span> questions.</div>
+    <div class="warning-msg" id="warningMsg">⚠ Please answer all questions before submitting. You have left some questions unanswered.</div>
+    <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">Submit Exam</button>
+  </div>
+</div>
+
+<!-- ==================== RESULT ==================== -->
+<div id="screen-result" class="screen">
+  <div class="score-card" id="scoreCard">
+    <div class="grade-badge" id="gradeBadge">—</div>
+    <div class="score-display" id="scoreDisplay">0/60</div>
+    <div class="score-label">Final Score</div>
+    <div id="percentDisplay" style="font-size:1.4rem;color:var(--gold-light);font-family:'JetBrains Mono',monospace;"></div>
+    <div class="score-stats">
+      <div class="stat-item"><div class="stat-val correct" id="correctCount">0</div><div class="stat-lbl">✔ Correct</div></div>
+      <div class="stat-item"><div class="stat-val wrong" id="wrongCount">0</div><div class="stat-lbl">✘ Wrong</div></div>
+      <div class="stat-item"><div class="stat-val unattempted" id="unattemptedCount">0</div><div class="stat-lbl">— Skipped</div></div>
+    </div>
+  </div>
+  <div class="result-actions">
+    <button class="btn-action btn-navy" onclick="showDashboard()">📊 Teacher Dashboard</button>
+    <button class="btn-action btn-gold" onclick="reviewAnswers()">🔍 Review Answers</button>
+    <button class="btn-action btn-green" onclick="restartExam()">↺ New Attempt</button>
+  </div>
+  <div id="reviewArea" style="margin-top:32px;display:none;"></div>
+</div>
+
+<!-- ==================== DASHBOARD ==================== -->
+<div id="screen-dashboard" class="screen">
+  <h2>📊 Teacher Dashboard — Results Record</h2>
+  <div class="dashboard-actions">
+    <button class="btn-action btn-gold" onclick="downloadCSV()">⬇ Download CSV / Excel</button>
+    <button class="btn-action btn-navy" onclick="clearResults()" style="font-size:0.8rem;">🗑 Clear All Records</button>
+    <button class="btn-action" style="background:#e0e0e0;color:#333;" onclick="goBack()">← Back</button>
+  </div>
+  <div class="dashboard-table-wrap">
+    <table id="dashboardTable">
+      <thead>
+        <tr>
+          <th>#</th><th>Student Name</th><th>Class</th><th>Score</th><th>Percentage</th><th>Grade</th><th>Date &amp; Time</th>
+        </tr>
+      </thead>
+      <tbody id="dashboardBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// ================================================================
+//  QUESTION BANK
+// ================================================================
+const SECTION_A = [
+  // CPU & Components
+  { q:"What is the full form of CPU?", opts:["Central Processing Unit","Computer Processing Utility","Central Program Unit","Computer Program Utility"], ans:0 },
+  { q:"The CPU is also known as the _______ of the computer.", opts:["Heart","Lungs","Brain","Memory"], ans:2 },
+  { q:"Which part of the CPU performs all arithmetic and logical operations?", opts:["Control Unit","Memory Unit","Arithmetic Logic Unit","Output Unit"], ans:2 },
+  { q:"Which unit controls each and every part of the computer system along with peripherals?", opts:["ALU","Memory Unit","Control Unit","Input Unit"], ans:2 },
+  { q:"The Memory Unit of the CPU provides space for storing:", opts:["Only final results","Data, instructions, intermediate results and final results","Only instructions","Only data"], ans:1 },
+  { q:"Which of the following is NOT a part of the CPU?", opts:["ALU","Control Unit","Memory Unit","Monitor"], ans:3 },
+  { q:"The microprocessor in a CPU consists of:", opts:["ALU and RAM","ALU and Control Unit","ROM and RAM","Hard Disk and ROM"], ans:1 },
+  { q:"Which of the following is one of the main functions of the CPU?", opts:["Display images on screen","Store data and instructions in memory for processing","Print documents","Connect to the internet"], ans:1 },
+
+  // Hardware & Software
+  { q:"Hardware refers to the _______ devices of a computer system.", opts:["Logical","Virtual","Physical","Programmed"], ans:2 },
+  { q:"Software refers to the programs that enable a computer to:", opts:["Process data physically","Perform specific tasks","Store hardware","Print documents"], ans:1 },
+  { q:"Which of the following is an example of software?", opts:["Keyboard","RAM","Operating System","Hard Disk"], ans:2 },
+  { q:"Which of the following is NOT a hardware component?", opts:["Mouse","Keyboard","RAM","Microsoft Word"], ans:3 },
+  { q:"Hardware starts functioning once:", opts:["It is manufactured","A software is loaded","It is connected to power","It is repaired"], ans:1 },
+  { q:"Software is _______ in nature.", opts:["Physical","Mechanical","Logical","Electrical"], ans:2 },
+  { q:"Which of the following has more chances of failure?", opts:["Software","Hardware","Both equally","Neither"], ans:1 },
+  { q:"Hardware components can be:", opts:["Seen only","Touched only","Seen and touched","Neither seen nor touched"], ans:2 },
+  { q:"Software can be viewed at the time of:", opts:["Manufacturing","Execution or loading","Repair","Installation only"], ans:1 },
+
+  // Internal Hardware
+  { q:"Components present inside a CPU or installed within a computer are called:", opts:["External hardware","Application software","Internal hardware","System software"], ans:2 },
+  { q:"Which of the following is NOT internal hardware?", opts:["CPU","SMPS","Motherboard","Scanner"], ans:3 },
+  { q:"How many main internal hardware components are listed in the chapter?", opts:["4","5","6","7"], ans:2 },
+
+  // Primary Memory – RAM
+  { q:"RAM stands for:", opts:["Read Access Memory","Random Access Memory","Rapid Access Module","Read And Modify"], ans:1 },
+  { q:"RAM is called Random Access Memory because:", opts:["It is randomly placed inside the computer","Data can be accessed directly from any storage location","It stores data randomly","It randomly deletes data"], ans:1 },
+  { q:"What happens to data in RAM when the computer is switched off?", opts:["It is saved permanently","It is compressed","It is lost","It is moved to ROM"], ans:2 },
+  { q:"RAM is _______ than a hard disk in reading and writing data.", opts:["Slower","Much faster","The same speed","Less reliable"], ans:1 },
+  { q:"Which of the following stores the operating system and application programs currently in use?", opts:["ROM","Hard Disk","RAM","Pen Drive"], ans:2 },
+  { q:"The storage capacity of RAM compared to a hard disk is:", opts:["Much larger","Equal","Smaller","Unlimited"], ans:2 },
+
+  // Primary Memory – ROM
+  { q:"ROM stands for:", opts:["Random Only Memory","Read Only Memory","Rapid Output Memory","Read Output Module"], ans:1 },
+  { q:"ROM is also called non-volatile memory because:", opts:["It cannot be read","It stores temporary data","Programs stored are not erased when the system is switched off","It uses no power"], ans:2 },
+  { q:"Which of the following does ROM mainly contain?", opts:["Games and music","BIOS, bootstrap loader, CMOS setup and POST","User documents","Internet files"], ans:1 },
+  { q:"BIOS stands for:", opts:["Basic Input Output System","Binary Input Output Software","Basic Integrated Output System","Built-In Operating System"], ans:0 },
+  { q:"CMOS stands for:", opts:["Computer Memory Operating System","Complementary Metal Oxide Semiconductor","Central Memory Output Software","Computer Modular Output Standard"], ans:1 },
+  { q:"POST stands for:", opts:["Power Output Self Test","Power-On Self-Test","Program Output Startup Test","Processor Output Speed Test"], ans:1 },
+  { q:"Which memory does NOT allow new data to be written on it?", opts:["RAM","Cache memory","ROM","Secondary memory"], ans:2 },
+  { q:"Information in ROM remains intact even if the power supply is:", opts:["Doubled","Switched off","Reduced","Connected"], ans:1 },
+
+  // Secondary Memory
+  { q:"Secondary memory is also called:", opts:["Primary storage","Cache memory","Auxiliary memory or secondary storage devices","Virtual memory"], ans:2 },
+  { q:"Which of the following is a secondary memory device?", opts:["RAM","ROM","Hard Disk","Control Unit"], ans:2 },
+  { q:"The storage capacity of a hard disk is:", opts:["1 Megabyte or more","1 Gigabyte exactly","1 Terabyte or more","1 Kilobyte or more"], ans:2 },
+  { q:"Hard disk plates are coated with:", opts:["Copper oxide","Iron oxide","Zinc oxide","Tin oxide"], ans:1 },
+  { q:"Hard disk plates are mounted on a common spindle rotated at approximately:", opts:["1200 rpm","2400 rpm","3600 rpm","4800 rpm"], ans:2 },
+  { q:"Data is recorded on the hard disk through the:", opts:["Laser head","Read-write head","Spindle","Motor"], ans:1 },
+  { q:"Optical disc stores data using:", opts:["Magnetic coating","Low-powered laser beams","Ink printing","Electric pulses"], ans:1 },
+  { q:"DVD stands for:", opts:["Digital Video Device","Direct Video Disc","Digital Versatile/Video Disc","Dual Visible Data"], ans:2 },
+  { q:"Which secondary memory device uses low-powered laser beams transmitted from a laser head?", opts:["Hard Disk","Pen Drive","Optical Disc","Magnetic Tape"], ans:2 },
+  { q:"Which of the following secondary memory units is obsolete in present days?", opts:["Hard Disk","Optical Disc","Pen Drive","Floppy Disk"], ans:3 },
+
+  // Storage Units
+  { q:"How many bits make one byte?", opts:["4","8","16","32"], ans:1 },
+  { q:"A group of 4 bits is called:", opts:["Byte","Word","Nibble","Kilobyte"], ans:2 },
+  { q:"1 Kilobyte (KB) equals:", opts:["1000 bytes","512 bytes","1024 bytes","2048 bytes"], ans:2 },
+  { q:"1 GB (Gigabyte) equals:", opts:["1024 KB","1024 MB","1024 TB","1024 PB"], ans:1 },
+  { q:"What unit comes after Terabyte in the storage hierarchy?", opts:["Gigabyte","Exabyte","Petabyte","Zetabyte"], ans:2 },
+
+  // SMPS
+  { q:"SMPS stands for:", opts:["Simple Machine Power Supply","Switched-Mode Power Supply","System Mode Power Supply","Simple Motor Power Supply"], ans:1 },
+  { q:"SMPS is placed at the _______ of a computer's cabinet.", opts:["Front","Top","Back","Left side"], ans:2 },
+  { q:"The main advantage of SMPS is:", opts:["It provides Wi-Fi to the computer","It activates the computer at minimum power loss","It increases RAM capacity","It cools the processor"], ans:1 },
+];
+
+const SECTION_B = [
+  {
+    assertion:"RAM is called volatile memory.",
+    reason:"The data stored in RAM is lost when the computer is switched off.",
+    ans:0 // A
+  },
+  {
+    assertion:"ROM is also known as non-volatile memory.",
+    reason:"ROM stores BIOS, bootstrap loader, CMOS and POST which are not erased when power is off.",
+    ans:0 // A
+  },
+  {
+    assertion:"The CPU is called the 'Brain of the Computer'.",
+    reason:"All decisions in a computer system are taken by the CPU.",
+    ans:0 // A
+  },
+  {
+    assertion:"Secondary memory has a higher storage capacity than primary memory.",
+    reason:"Primary memory is accessed directly by the CPU and has faster access time.",
+    ans:1 // B
+  },
+  {
+    assertion:"The serial port transfers data bit by bit using a single wire.",
+    reason:"Serial port takes eight times longer than a parallel port to transfer one byte.",
+    ans:0 // A
+  },
+  {
+    assertion:"A modem can only convert digital signals to analog signals.",
+    reason:"Modem modulates outgoing digital signals and demodulates incoming analog signals.",
+    ans:3 // D
+  },
+  {
+    assertion:"The motherboard is also called the Main Circuit Board or System Board.",
+    reason:"The motherboard is placed outside the computer cabinet.",
+    ans:2 // C
+  },
+  {
+    assertion:"The parallel port is faster than the serial port.",
+    reason:"The parallel port transmits eight bit signals at a time, making it eight times faster than a serial port.",
+    ans:0 // A
+  },
+  {
+    assertion:"USB modem requires an external power source to operate.",
+    reason:"USB modems are small, portable devices that look similar to a USB flash drive.",
+    ans:3 // D
+  },
+  {
+    assertion:"Hard disk is one of the most useful and popular secondary storage devices.",
+    reason:"Hard disk stores data permanently even after the computer is switched off.",
+    ans:0 // A
+  }
+];
+
+const AR_OPTIONS = [
+  "A. Both A and R are true, and R is the correct explanation of A.",
+  "B. Both A and R are true, but R is NOT the correct explanation of A.",
+  "C. A is true but R is false.",
+  "D. A is false but R is true."
+];
+
+// ================================================================
+//  STATE
+// ================================================================
+let shuffledA = [], shuffledB = [];
+let answers = {}; // key: "A-i" or "B-i"
+let timerInterval = null;
+let timeLeft = 25 * 60;
+let examSubmitted = false;
+let studentName = "", studentClass = "";
+
+// ================================================================
+//  SHUFFLE
+// ================================================================
+function shuffle(arr) {
+  const a = arr.map((x,i)=>({...x, _origIdx:i}));
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+// ================================================================
+//  START EXAM
+// ================================================================
+function startExam() {
+  studentName = document.getElementById('studentName').value.trim();
+  studentClass = document.getElementById('studentClass').value.trim();
+  if(!studentName || !studentClass){
+    alert('Please enter your name and class before starting the exam.');
+    return;
+  }
+  shuffledA = shuffle(SECTION_A);
+  shuffledB = shuffle(SECTION_B);
+  answers = {};
+  examSubmitted = false;
+  timeLeft = 25 * 60;
+
+  renderSectionA();
+  renderSectionB();
+
+  showScreen('exam');
+  document.getElementById('timerBar').style.display = 'block';
+  startTimer();
+  updateProgress();
+}
+
+// ================================================================
+//  RENDER
+// ================================================================
+function renderSectionA() {
+  const container = document.getElementById('sectionA');
+  container.innerHTML = '';
+  shuffledA.forEach((q, i) => {
+    const block = document.createElement('div');
+    block.className = 'question-block';
+    block.id = `qblock-A-${i}`;
+
+    let optsHtml = q.opts.map((o, j) => `
+      <label class="option-label" id="opt-A-${i}-${j}" onclick="selectAnswer('A',${i},${j})">
+        <input type="radio" name="A-${i}" value="${j}">
+        <span class="option-key">${['A','B','C','D'][j]}</span>
+        <span>${o}</span>
+      </label>`).join('');
+
+    block.innerHTML = `
+      <div class="q-text-wrap">
+        <span class="q-number">${i+1}</span>
+        <span class="q-text">${q.q}</span>
+      </div>
+      <div class="options-grid">${optsHtml}</div>`;
+    container.appendChild(block);
+  });
+}
+
+function renderSectionB() {
+  const container = document.getElementById('sectionB');
+  // keep the instruction row, add questions after
+  shuffledB.forEach((q, i) => {
+    const block = document.createElement('div');
+    block.className = 'ar-block';
+    block.id = `qblock-B-${i}`;
+
+    let optsHtml = AR_OPTIONS.map((o, j) => `
+      <label class="option-label" id="opt-B-${i}-${j}" onclick="selectAnswer('B',${i},${j})">
+        <input type="radio" name="B-${i}" value="${j}">
+        <span class="option-key">${['A','B','C','D'][j]}</span>
+        <span>${o}</span>
+      </label>`).join('');
+
+    block.innerHTML = `
+      <div class="q-text-wrap">
+        <span class="q-number">${50+i+1}</span>
+        <span class="q-text" style="font-weight:600;color:var(--navy);">Question ${50+i+1}</span>
+      </div>
+      <div class="ar-stmt assertion"><strong>Assertion (A):</strong> ${q.assertion}</div>
+      <div class="ar-stmt reason"><strong>Reason (R):</strong> ${q.reason}</div>
+      <div class="ar-options">${optsHtml}</div>`;
+    container.appendChild(block);
+  });
+}
+
+// ================================================================
+//  SELECT ANSWER
+// ================================================================
+function selectAnswer(section, qIdx, optIdx) {
+  if(examSubmitted) return;
+  const key = `${section}-${qIdx}`;
+  answers[key] = optIdx;
+
+  // Update UI
+  for(let j=0;j<4;j++){
+    const lbl = document.getElementById(`opt-${section}-${qIdx}-${j}`);
+    if(lbl) lbl.classList.toggle('selected', j===optIdx);
+  }
+  document.getElementById(`qblock-${section}-${qIdx}`).classList.add('answered');
+  updateProgress();
+}
+
+// ================================================================
+//  PROGRESS
+// ================================================================
+function updateProgress() {
+  const total = 60;
+  const done = Object.keys(answers).length;
+  document.getElementById('progressText').textContent = `${done} / ${total} answered`;
+  document.getElementById('progressFill').style.width = `${(done/total)*100}%`;
+  document.getElementById('answeredCount').textContent = done;
+  document.getElementById('submitBtn').disabled = (done < total);
+}
+
+// ================================================================
+//  TIMER
+// ================================================================
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const m = String(Math.floor(timeLeft/60)).padStart(2,'0');
+    const s = String(timeLeft%60).padStart(2,'0');
+    document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+    if(timeLeft <= 120) document.getElementById('timerBar').classList.add('urgent');
+    if(timeLeft <= 0) { clearInterval(timerInterval); autoSubmit(); }
+  }, 1000);
+}
+
+function autoSubmit() {
+  if(!examSubmitted) submitExam();
+}
+
+// ================================================================
+//  SUBMIT
+// ================================================================
+function handleSubmit() {
+  const done = Object.keys(answers).length;
+  if(done < 60){
+    document.getElementById('warningMsg').classList.add('show');
+    return;
+  }
+  submitExam();
+}
+
+function submitExam() {
+  if(examSubmitted) return;
+  examSubmitted = true;
+  clearInterval(timerInterval);
+  document.getElementById('timerBar').style.display = 'none';
+
+  // Score
+  let correct = 0, wrong = 0, skipped = 0;
+  shuffledA.forEach((q,i)=>{
+    const key = `A-${i}`;
+    if(answers[key] === undefined) skipped++;
+    else if(answers[key] === q.ans) correct++;
+    else wrong++;
+  });
+  shuffledB.forEach((q,i)=>{
+    const key = `B-${i}`;
+    if(answers[key] === undefined) skipped++;
+    else if(answers[key] === q.ans) correct++;
+    else wrong++;
+  });
+
+  const score = correct;
+  const pct = ((score/60)*100).toFixed(1);
+  const grade = pct>=90?'A+':pct>=75?'A':pct>=60?'B':pct>=45?'C':'D';
+
+  // Save to localStorage
+  const record = {
+    name: studentName,
+    cls: studentClass,
+    score,
+    pct,
+    grade,
+    date: new Date().toLocaleString('en-IN')
+  };
+  const results = JSON.parse(localStorage.getItem('rka_results')||'[]');
+  results.push(record);
+  localStorage.setItem('rka_results', JSON.stringify(results));
+
+  // Show result
+  document.getElementById('gradeBadge').textContent = `Grade: ${grade}`;
+  document.getElementById('scoreDisplay').textContent = `${score}/60`;
+  document.getElementById('percentDisplay').textContent = `${pct}%`;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('unattemptedCount').textContent = skipped;
+
+  showScreen('result');
+  document.getElementById('timerBar').style.display = 'none';
+}
+
+// ================================================================
+//  REVIEW
+// ================================================================
+function reviewAnswers() {
+  const area = document.getElementById('reviewArea');
+  area.style.display = 'block';
+
+  let html = '<div class="review-section"><h3>Section A — Multiple Choice Questions</h3>';
+  shuffledA.forEach((q,i) => {
+    const key = `A-${i}`;
+    const uAns = answers[key];
+    const correct = q.ans;
+    const isCorrect = uAns === correct;
+    const isSkipped = uAns === undefined;
+    html += `<div class="review-item ${isCorrect?'correct-ans':'wrong-ans'}">
+      <div class="review-q"><strong>Q${i+1}.</strong> ${q.q}</div>
+      <div class="review-ans-row">
+        <span class="your-ans ${isCorrect?'right':'wrong'}">${isSkipped?'— Skipped':'Your answer: '+['A','B','C','D'][uAns]+'. '+q.opts[uAns]}</span>
+        ${!isCorrect?`<span class="correct-show">✔ Correct: ${['A','B','C','D'][correct]}. ${q.opts[correct]}</span>`:''}
+      </div>
+    </div>`;
+  });
+  html += '</div><div class="review-section"><h3>Section B — Assertion-Reason Questions</h3>';
+  shuffledB.forEach((q,i) => {
+    const key = `B-${i}`;
+    const uAns = answers[key];
+    const correct = q.ans;
+    const isCorrect = uAns === correct;
+    const isSkipped = uAns === undefined;
+    html += `<div class="review-item ${isCorrect?'correct-ans':'wrong-ans'}">
+      <div class="review-q"><strong>Q${50+i+1}.</strong> <em>Assertion:</em> ${q.assertion}<br><em>Reason:</em> ${q.reason}</div>
+      <div class="review-ans-row">
+        <span class="your-ans ${isCorrect?'right':'wrong'}">${isSkipped?'— Skipped':'Your answer: '+['A','B','C','D'][uAns]}</span>
+        ${!isCorrect?`<span class="correct-show">✔ Correct: ${['A','B','C','D'][correct]}</span>`:''}
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  area.innerHTML = html;
+  area.scrollIntoView({behavior:'smooth'});
+}
+
+// ================================================================
+//  DASHBOARD
+// ================================================================
+function showDashboard() {
+  renderDashboard();
+  showScreen('dashboard');
+  document.getElementById('timerBar').style.display = 'none';
+}
+
+function renderDashboard() {
+  const results = JSON.parse(localStorage.getItem('rka_results')||'[]');
+  const tbody = document.getElementById('dashboardBody');
+  if(!results.length){
+    tbody.innerHTML = '<tr><td colspan="7" class="no-data">No results recorded yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = results.map((r,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${r.name}</td>
+      <td>${r.cls}</td>
+      <td><strong>${r.score}/60</strong></td>
+      <td class="pct-cell ${r.pct>=75?'hi':r.pct>=45?'mid':'lo'}">${r.pct}%</td>
+      <td><strong>${r.grade}</strong></td>
+      <td>${r.date}</td>
+    </tr>`).join('');
+}
+
+function downloadCSV() {
+  const results = JSON.parse(localStorage.getItem('rka_results')||'[]');
+  if(!results.length){ alert('No results to download.'); return; }
+  const header = ['#','Student Name','Class','Score','Percentage','Grade','Date & Time'];
+  const rows = results.map((r,i)=>[i+1,r.name,r.cls,`${r.score}/60`,`${r.pct}%`,r.grade,r.date]);
+  const csv = [header,...rows].map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
+  const blob = new Blob([csv],{type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'RKA_Exam_Results.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function clearResults() {
+  if(confirm('Are you sure you want to delete ALL result records? This cannot be undone.')){
+    localStorage.removeItem('rka_results');
+    renderDashboard();
+  }
+}
+
+function goBack() {
+  if(examSubmitted) showScreen('result');
+  else showScreen('landing');
+  document.getElementById('timerBar').style.display = examSubmitted?'none':'none';
+}
+
+// ================================================================
+//  UTILITY
+// ================================================================
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(`screen-${name}`).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function restartExam() {
+  showScreen('landing');
+  document.getElementById('timerBar').style.display = 'none';
+  document.getElementById('studentName').value = '';
+  document.getElementById('studentClass').value = '';
+}
+
+function toggleFullscreen() {
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+}
+</script>
+</body>
+</html>
